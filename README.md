@@ -17,8 +17,6 @@ You can try the application live on GitHub Pages:
 
 [Live Demo](https://srg774.github.io/text/)
 
-Replace `<YOUR_GITHUB_USERNAME>` with your GitHub username and `<REPOSITORY_NAME>` with the name of your repository.
-
 ## How to Use
 
 1. **Enter Text**: Type the text you want to hear in the "Enter your text here" box.
