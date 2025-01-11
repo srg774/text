@@ -15,7 +15,7 @@ This is a simple web-based application that uses the browser's built-in speech s
 
 You can try the application live on GitHub Pages:
 
-[Live Demo](https://<YOUR_GITHUB_USERNAME>.github.io/<REPOSITORY_NAME>/)
+[Live Demo](https://srg774.github.io/text/)
 
 Replace `<YOUR_GITHUB_USERNAME>` with your GitHub username and `<REPOSITORY_NAME>` with the name of your repository.
 
