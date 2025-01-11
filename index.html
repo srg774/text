@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Text-to-Speech</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #ffffff;
+        }
+        input, select, button, .slider-container {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+            display: block;
+            width: 80%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Advanced Text-to-Speech</h1>
+    <input type="text" id="textInput" placeholder="Enter your text here">
+    <select id="voiceSelect"></select>
+    
+    <div class="slider-container">
+        <label for="pitchSlider">Pitch: <span id="pitchValue">1</span></label>
+        <input type="range" id="pitchSlider" min="0.1" max="2" step="0.1" value="1">
+    </div>
+    
+    <div class="slider-container">
+        <label for="speedSlider">Speed: <span id="speedValue">1</span></label>
+        <input type="range" id="speedSlider" min="0.1" max="3" step="0.1" value="1">
+    </div>
+    
+    <div class="slider-container">
+        <label for="volumeSlider">Volume: <span id="volumeValue">1</span></label>
+        <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1">
+    </div>
+    
+    <button id="playButton">Play Voice</button>
+
+    <script>
+        const textInput = document.getElementById('textInput');
+        const voiceSelect = document.getElementById('voiceSelect');
+        const pitchSlider = document.getElementById('pitchSlider');
+        const speedSlider = document.getElementById('speedSlider');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const playButton = document.getElementById('playButton');
+        const pitchValue = document.getElementById('pitchValue');
+        const speedValue = document.getElementById('speedValue');
+        const volumeValue = document.getElementById('volumeValue');
+
+        let voices = [];
+
+        // Load available voices
+        function loadVoices() {
+            voices = window.speechSynthesis.getVoices();
+            voiceSelect.innerHTML = '';
+            voices.forEach((voice) => {
+                const option = document.createElement('option');
+                option.value = voice.name;
+                option.textContent = `${voice.name} (${voice.lang})`;
+                voiceSelect.appendChild(option);
+            });
+        }
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+
+        // Update slider values
+        pitchSlider.addEventListener('input', () => pitchValue.textContent = pitchSlider.value);
+        speedSlider.addEventListener('input', () => speedValue.textContent = speedSlider.value);
+        volumeSlider.addEventListener('input', () => volumeValue.textContent = volumeSlider.value);
+
+        // Play Voice
+        playButton.addEventListener('click', () => {
+            const utterance = new SpeechSynthesisUtterance(textInput.value);
+            utterance.voice = voices.find(voice => voice.name === voiceSelect.value);
+            utterance.pitch = parseFloat(pitchSlider.value);
+            utterance.rate = parseFloat(speedSlider.value);
+            utterance.volume = parseFloat(volumeSlider.value);
+            window.speechSynthesis.speak(utterance);
+        });
+
+        // Initialize voices
+        loadVoices();
+    </script>
+</body>
+</html>
